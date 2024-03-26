@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
-import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, GridApi} from "ag-grid-community";
 
 
 @Component({
 	selector: 'students-details-student-records',
-	standalone: true,
-	imports: [AgGridModule],
 	templateUrl: './student-records.component.html',
 	styleUrl: './student-records.component.scss'
 })
