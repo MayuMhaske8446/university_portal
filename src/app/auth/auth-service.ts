@@ -7,7 +7,7 @@ import { delay, tap } from "rxjs/operators";
 })
 
 export class AuthService {
-    isLoggedIn : boolean = true;
+    isLoggedIn : boolean = false;
 
     redirectUrl : string | null = null;
 

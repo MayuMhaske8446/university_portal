@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet, Routes } from '@angular/router';
 import { NgbHighlight} from "@ng-bootstrap/ng-bootstrap";
 import { AgGridModule} from "ag-grid-angular";
+import { FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import { LandingComponent } from './landing/landing.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
@@ -23,7 +24,7 @@ const routes : Routes = [
       {
         path : "landing",
         component : LandingComponent
-      },
+      },      
       {
         path : "students",
         component : StudentRecordsComponent
@@ -47,6 +48,8 @@ const routes : Routes = [
     NgbHighlight,
     AgGridModule,
     RouterOutlet,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(
       routes
     )
