@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet, Routes } from '@angular/router';
-import { NgbHighlight} from "@ng-bootstrap/ng-bootstrap";
-import { AgGridModule} from "ag-grid-angular";
+import { NgbHighlight, NgbDatepickerModule, NgbTypeaheadModule} from "@ng-bootstrap/ng-bootstrap";
+import { AgGridModule, AgGridAngular} from "ag-grid-angular";
 import { FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import { LandingComponent } from './landing/landing.component';
@@ -46,7 +46,10 @@ const routes : Routes = [
     CommonModule,
     RouterModule,
     NgbHighlight,
+    NgbDatepickerModule,
+    NgbTypeaheadModule,
     AgGridModule,
+    AgGridAngular,
     RouterOutlet,
     FormsModule,
     ReactiveFormsModule,

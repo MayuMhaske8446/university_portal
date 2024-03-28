@@ -1,9 +1,168 @@
-<h1>Students record component</h1>
-<ag-grid-angular
-    class="ag-theme-alpine"
-    (gridReady)="onGridReady($event);"
-    [columnDefs]="columnDefs"
-    [rowData] = "apiResponse"
-    style="height : 500px; width : 100%"
->
-</ag-grid-angular>
+<div class="students-entry">
+    <ng-template #studentsForm let-modal>
+        <form class="students-entry-form">
+            <div class="students-entry-form__form-row">
+                Full Name
+                <div class="students-entry-form__form-row--input-section">
+                    <span class="form-group">
+                        <label for="inputName">Name</label>
+                        <input id="inputName" type="text" [formControl]="nameControl" placeholder="Name"
+                        class="form-control">
+                    </span>
+                </div>
+            </div>
+            <div class="students-entry-form__form-row">
+                Origin
+                <div class="students-entry-form__form-row--input-section">
+                    <span class="form-group">
+                        <label for="inputCountry">Country</label>
+                        <input id="inputCountry" type="text" [formControl]="countryControl" placeholder="Country"
+                        class="form-control">
+                    </span>
+                    <span class="form-group">
+                        <label for="inputState">State</label>
+                        <input id="inputState" type="text" [formControl]="stateControl" placeholder="State"
+                        class="form-control">
+                    </span>
+                </div>
+            </div>
+            <div class="students-entry-form__form-row">
+                Declaration
+                <div class="students-entry-form__form-row--input-section">
+                    <span class="form-group">
+                        <label for="inputPassport">PassportDeclaration</label>
+                        <input id="inputPassport" type="text" [formControl]="passportDeclarationControl" placeholder="PassportDeclaration"
+                        class="form-control">
+                    </span>
+                    <span class="form-group">
+                        <label for="inputFittness">FittnessDeclaration</label>
+                        <input id="inputFittness" type="text" [formControl]="fitnessDeclarationControl" placeholder="FittnessDeclaration"
+                        class="form-control">
+                    </span>
+                </div>
+            </div>
+            <div class="students-entry-form__form-row">
+                Course Name
+                <div class="students-entry-form__form-row--input-section">
+                    <span class="form-group">
+                        <label for="inputCourse">Course Name</label>
+                        <input id="inputCourse" type="text" [formControl]="courseNameControl" placeholder="Course Name"
+                        class="form-control">
+                    </span>
+                    <span class="form-group">
+                        <label for="inputSubject">Subject</label>
+                        <input id="inputSubject" type="text" [formControl]="subjectsControl" placeholder="Subject"
+                        class="form-control">
+                    </span>
+                </div>
+            </div>
+            <div class="students-entry-form__form-row">
+                Birth Date
+                <div class="students-entry-form__form-row--input-section">
+                    <div class="input-group">
+                        <input 
+                            [formControl]="dateControl"
+                            class="form-control"
+                            placeholder="YYYY-MM-DD"
+                            ngbDatepicker
+                            [footerTemplate]="footerTemplate"
+                            #d="ngbDatepicker"
+                        />  
+                        <button class="btn btn-secondary bi bi-calendar" (click)="d.toggle()"></button>
+                    </div>
+                    <div class="align-center">
+                        <span *ngIf="dateControl?.value?.year">
+                            Selected Year : {{ dateControl.value.year}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="students-entry-form__form-row">
+                Present Address
+                <div class="students-entry-form__form-row--input-address">
+                    <span class="form-group">
+                        <label for="">Street Address</label>
+                        <input type="text" [formControl] = "streetControl" class="form-control" placeholder="Street address">
+                    </span>
+                    <span class="form-group">
+                        <label for="">Address2</label>
+                        <input type="text" [formControl] = "address2Control" class="form-control" placeholder="Address2">
+                    </span>
+                    <span class="form-group">
+                        <label for="">Email Address</label>
+                        <input type="text" [formControl] = "emailControl" class="form-control" placeholder="Email">
+                    </span>
+                </div>
+                <div class="students-entry-form__form-row--input-section">
+                    <span class="form-group">
+                        <label for="">State</label>
+                        <div class="field-label">{{stateControl.value}}</div>
+                    </span>
+                    <span class="form-group">
+                        <label for="">City</label>
+                        <input type="text" class="form-control" [formControl]="cityControl"/>
+                    </span>
+                </div>
+                <div class="students-entry-form__form-row--input-section">
+                    <span class="form-group">
+                        <label for="">Postal Code</label>
+                        <input type="text" class="form-control" [formControl]="zipControl">
+                    </span>
+                    <span class="form-group">
+                        <label for="">Country</label>
+                        <div class="field-control">{{countryControl.value}}</div>
+                    </span>
+                </div>
+            </div>
+            <div class="students-entry-form__form-row--input-buttons">
+                <button type="submit" class="btn btn-primary" (click)="modal.close()" [disabled]="studentDetailsForm.status === 'INVALID'">Submit</button>
+                <button type="submit" class="btn btn-light" (click)="modal.dismiss()">Cancel</button>
+            </div>
+            <ng-template #footerTemplate>
+                <hr class="my-0"/>
+                <button 
+                    class="btn btn-primary btn-sm m-2 float-start"
+                    (click)="model=today; d.close"
+                >Today</button>
+                <button 
+                    class="btn btn-primary btn-sm m-2 float-start"
+                    (click)="d.close;"
+                >Close</button>                
+            </ng-template>
+        </form>
+    </ng-template>
+    <ag-grid-angular
+        class="ag-theme-alpine records-grid"
+        (gridReady)="onGridReady($event)"
+        [columnDefs]="columnDefs"
+        [rowSelection]="'single'"
+        [rowData]="apiResponse"
+        style="height: 500px; width: 100%;">
+    </ag-grid-angular>
+</div>
+<ng-template #confirmDeleteModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Profile Deletion</h4>
+        <button type="button" class="btn btn-close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>
+            <strong>Are you really want to delete <span class="text-primary">{{selectedRecord.name}}</span> profile</strong>
+        </p>
+        <p>
+            All the information about this record will be deleted from the application
+            <span class="text-danger">This operation can not be undone.</span>
+        </p>
+        <div class="modal-footer">
+            <button class="btn-outliner-secondary btn" (click)="modal.dismiss('close button clicked')">Cancel</button>
+            <button class="btn btn-danger" (click)="modal.close('Ok clicked')">Ok</button>
+        </div>
+    </div>
+</ng-template>
+<div class="add-btn-container">
+    <button class="add-btn-continer__action-button btn btn-success"  (click)="open(studentsForm)">Add Student</button>
+    <button class="add-btn-continer__action-button btn btn-light"  [disabled]="!checkIfSelected()" (click)="onOpenViewForm(studentsForm)">View Student</button>
+    <button class="add-btn-continer__action-button btn btn-danger"  [disabled]="!checkIfSelected()" (click)="onDeletedRecord(confirmDeleteModal)">Delete Student</button>
+    <button class="add-btn-continer__action-button btn btn-info"  [disabled]="!checkIfSelected()" (click)="clearSelection()">Clear Selection</button>
+</div>
+
